@@ -59,12 +59,26 @@ alternatively you can pass in your local keychain, if you have previously deploy
 -v ~/.local/share/python_keyring/:/root/.local/share/python_keyring/ -e fingerprint="<fingerprint>"
 ```
 
+### Set a custom reward address
+```bash
+-e reward_address="<reward-address>"
+```
+
+### Disable automatic farming
+```bash
+-e auto_farm="false"
+```
 
 ### Persist configuration and db
 
-You can persist whole db and configuration, simply mount it to Host.
+You can persist whole db and configuration, simply mount it to Host. If you are using multiple simulators, please read the simulator naming documentation below.
 ```bash
 -v ~/.chia:/root/.chia
+```
+
+### Change the simulator name
+```bash
+-e name="<simulator-name>"
 ```
 
 ### Simulator Only
