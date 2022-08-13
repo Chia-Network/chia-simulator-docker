@@ -8,6 +8,7 @@ on:
 
 concurrency:
   group: "latest"
+  cancel-in-progress: true
 
 jobs:
   docker_build_and_publish_github:
@@ -67,13 +68,16 @@ jobs:
           images: |
             ghcr.io/chia-network/chia-simulator
             chianetwork/chia-simulator-docker
+          labels: |
+            org.opencontainers.image.title=One-Click Chia Simulator
+            org.opencontainers.image.vendor=Chia Network
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.latest-tag.outputs.result }}
             type=raw,value=${{ steps.cdv-latest-tag.outputs.result }}
 
       - name: Build docker image and push to github packages
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -83,3 +87,4 @@ jobs:
             "CHIA_BRANCH=${{ steps.latest-tag.outputs.result }}"
             "DEV_TOOLS_BRANCH=${{ steps.cdv-latest-tag.outputs.result }}"
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
