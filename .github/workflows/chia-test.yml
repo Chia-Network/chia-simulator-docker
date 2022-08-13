@@ -31,4 +31,4 @@ jobs:
               repo: 'chia-dev-tools',
             });
             return releases.data[0].tag_name;
-      - run: docker build --build-arg CHIA_BRANCH="${{ steps.tag.outputs.result }}"  --build-arg DEV_TOOLS_BRANCH="${{ steps.cdv-tag.outputs.result }}".
+      - run: docker build --build-arg CHIA_BRANCH="${{ steps.tag.outputs.result }}" DEV_TOOLS_BRANCH="${{ steps.cdv-tag.outputs.result }}".
