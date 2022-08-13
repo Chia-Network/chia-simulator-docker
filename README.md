@@ -3,7 +3,7 @@
 
 ## Quick Start
 
-These examples shows valid setups using the Chia Simulator for both docker run and docker-compose. Note that you should read some documentation at some point, but this is a good place to start.
+These examples show valid setups using the Chia Simulator for both docker run and docker-compose. Note that you should read some documentation at some point, but this is a good place to start.
 
 ### Docker run
 
@@ -13,8 +13,8 @@ docker run --name chia-simulator -d ghcr.io/chia-network/chia-simulator:latest -
 Syntax
 ```bash
 docker run --name <container-name> -d ghcr.io/chia-network/chia-simulator:latest -v /path/to/simulator/files:/root
-optional accept incoming rpc calls: --expose=8555
-optional: -v ~/.chia:/root/.chia (This allows you to persiststantly use the same simulator)
+optional: accept incoming rpc calls: --expose=8555
+optional: persiststantly use the same simulator -v ~/.chia/simulator:/root/.chia/simulator
 ```
 
 ### Docker compose
@@ -22,14 +22,14 @@ optional: -v ~/.chia:/root/.chia (This allows you to persiststantly use the same
 ```yaml
 version: "3.6"
 services:
-  chia:
+  chia-simulator:
     container_name: chia-simulator
     restart: unless-stopped
     image: ghcr.io/chia-network/chia-simulator:latest
     ports:
       - "8555:8555"
     volumes:
-      - ~/.chia:/root/.chia
+      - ~/.chia/simulator:/root/.chia/simulator
 ```
 
 ## Configuration
@@ -73,7 +73,7 @@ alternatively you can pass in your local keychain, if you have previously deploy
 
 You can persist whole db and configuration, simply mount it to Host. If you are using multiple simulators, please read the simulator naming documentation below.
 ```bash
--v ~/.chia:/root/.chia
+-v ~/.chia/simulator:/root/.chia/simulator
 ```
 
 ### Change the simulator name
@@ -101,7 +101,7 @@ To disable log file generation, use
 ```yaml
 version: "3.6"
 services:
-  chia:
+  chia-simulator:
     container_name: chia-simulator
     restart: unless-stopped
     image: ghcr.io/chia-network/chia-simulator:latest
@@ -114,7 +114,7 @@ services:
       # Enable log file generation
 #     log_to_file: true
     volumes:
-      - /home/user/.chia:/root/.chia
+      - /home/user/.chia/simulator:/root/.chia/simulator
 ```
 
 ## CLI
@@ -151,7 +151,7 @@ docker exec -it chia-simulator venv/bin/chia wallet show
 ## Building
 
 ```bash
-docker build -t chia-simulator --build-arg CHIA_BRANCH=latest DEV_TOOLS_BRANCH=main .
+docker build -t chia-simulator --build-arg CHIA_BRANCH=latest --build-arg DEV_TOOLS_BRANCH=main .
 ```
 
 ## Healthchecks
@@ -161,7 +161,7 @@ The Dockerfile includes a HEALTHCHECK instruction that runs one or more curl com
 ```yaml
 version: "3.6"
 services:
-  chia:
+  chia-simulator:
     ...
     environment:
       healthcheck: "false"
