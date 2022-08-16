@@ -33,7 +33,7 @@ RUN echo "cloning chia-dev-tools ${DEV_TOOLS_BRANCH}" && \
     /bin/sh /docker-install.sh
 
 # IMAGE BUILD
-FROM python:3.9-slim
+FROM python:3.11-rc-slim
 LABEL org.opencontainers.image.authors="j.nelson@chia.net"
 LABEL org.opencontainers.image.source="https://github.com/Chia-Network/chia-simulator-docker"
 LABEL org.opencontainers.image.url="https://github.com/Chia-Network/chia-simulator-docker"
