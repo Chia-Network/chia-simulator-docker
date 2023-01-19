@@ -7,8 +7,8 @@ jobs:
   docker_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/github-script@v4
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
         id: 'tag'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -19,7 +19,7 @@ jobs:
               repo: 'chia-blockchain',
             });
             return releases.data[0].tag_name;
-      - uses: actions/github-script@v4
+      - uses: actions/github-script@v6
         id: 'cdv-tag'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
