@@ -16,10 +16,10 @@ if [[ ${fingerprint} != "" ]]; then
   create_args+=" --fingerprint=${fingerprint}"
 fi
 # create and start simulator
-cdv sim create ${create_args}
+chia dev sim create ${create_args}
 # start wallet if enabled
 if [[ ${start_wallet} == "true" ]]; then
-  cdv sim start -w
+  chia dev sim start -w
 fi
 
 trap "echo Shutting down ...; cdv sim stop -wd; exit 0" SIGINT SIGTERM
