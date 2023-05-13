@@ -22,7 +22,7 @@ if [[ ${start_wallet} == "true" ]]; then
   chia dev sim start -w
 fi
 
-trap "echo Shutting down ...; cdv sim stop -wd; exit 0" SIGINT SIGTERM
+trap "echo Shutting down ...; chia dev sim stop -wd; exit 0" SIGINT SIGTERM
 
 # shellcheck disable=SC2154
 # Ensures the log file actually exists, so we can tail successfully
