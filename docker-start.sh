@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2154,SC2086
 # generate long string of args for simulator
-create_args="--docker_mode"
+create_args="--docker-mode"
 if [[ ${mnemonic} != "" ]]; then
   create_args+=" --mnemonic=${mnemonic}"
 fi
@@ -10,7 +10,7 @@ if [[ ${auto_farm} != "" ]]; then
   create_args+=" --auto-farm=${auto_farm}"
 fi
 if [[ ${reward_address} != "" ]]; then
-  create_args+=" --reward_address=${reward_address}"
+  create_args+=" --reward-address=${reward_address}"
 fi
 if [[ ${fingerprint} != "" ]]; then
   create_args+=" --fingerprint=${fingerprint}"
