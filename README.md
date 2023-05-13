@@ -133,7 +133,7 @@ docker exec -it chia-simulator venv/bin/chia plots add -d /plots
 
 You can see status from outside the container
 ```bash
-docker exec -it chia-simulator venv/bin/cdv sim status
+docker exec -it chia-simulator venv/bin/chia dev sim status
 ```
 or
 ```bash
