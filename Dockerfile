@@ -42,7 +42,7 @@ LABEL org.opencontainers.image.title="One-Click Chia Simulator"
 
 EXPOSE 8555 58444
 
-ENV SIMULATOR_ROOT_PATH=/root/.chia/simulator
+ENV CHIA_SIMULATOR_ROOT=/root/.chia/simulator
 ENV simulator_name="main"
 ENV start_wallet="true"
 ENV auto_farm="true"
@@ -67,7 +67,7 @@ COPY --from=chia_build /chia-dev-tools /chia-dev-tools
 
 # these allow one click cli access to the simulator
 ENV PATH=/chia-dev-tools/venv/bin:$PATH
-ENV CHIA_ROOT=$SIMULATOR_ROOT_PATH/$simulator_name
+ENV CHIA_ROOT=$CHIA_SIMULATOR_ROOT/$simulator_name
 
 WORKDIR /chia-dev-tools
 

@@ -8,7 +8,7 @@ These examples show valid setups using the Chia Simulator for both docker run an
 ### Docker run
 
 ```bash
-docker run --name chia-simulator -d ghcr.io/chia-network/chia-simulator:latest --expose=8555 -v ~/.chia:/root/.chia
+docker run --name chia-simulator -d --expose=8555 -v ~/.chia:/root/.chia ghcr.io/chia-network/chia-simulator:latest
 ```
 Syntax
 ```bash
@@ -133,7 +133,7 @@ docker exec -it chia-simulator venv/bin/chia plots add -d /plots
 
 You can see status from outside the container
 ```bash
-docker exec -it chia-simulator venv/bin/cdv sim status
+docker exec -it chia-simulator venv/bin/chia dev sim status
 ```
 or
 ```bash
