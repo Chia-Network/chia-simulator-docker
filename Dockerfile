@@ -18,7 +18,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 WORKDIR /chia-blockchain
 
 RUN echo "cloning chia-blockchain ${CHIA_BRANCH}" && \
-    git clone --branch ${CHIA_BRANCH} --recurse-submodules=mozilla-ca https://github.com/Chia-Network/chia-blockchain.git . && \
+    git clone --branch ${CHIA_BRANCH} https://github.com/Chia-Network/chia-blockchain.git . && \
     # If COMMIT is set, check out that commit, otherwise just continue
     if [ -n "${CHIA_COMMIT}" ]; then git checkout "${CHIA_COMMIT}"; fi && \
     echo "running build-script" && \
