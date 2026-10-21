@@ -1,5 +1,5 @@
 # CHIA + DEV TOOLS BUILD STEP
-FROM python:3.10 AS chia_build
+FROM python:3.13 AS chia_build
 
 ARG CHIA_BRANCH=latest
 ARG CHIA_COMMIT=""
@@ -17,7 +17,7 @@ RUN echo "cloning chia-blockchain ${CHIA_BRANCH}" && \
     # If COMMIT is set, check out that commit, otherwise just continue
     ( [ ! -z "CHIA_COMMIT" ] && git checkout CHIA_COMMIT ) || true && \
     echo "running build-script" && \
-    /bin/sh ./install.sh
+    INSTALL_PYTHON_VERSION=3.13 /bin/sh ./install.sh
 
 # we install all the chia-blockchain deps above
 WORKDIR /chia-dev-tools
@@ -33,7 +33,7 @@ RUN echo "cloning chia-dev-tools ${DEV_TOOLS_BRANCH}" && \
     /bin/sh /docker-install.sh
 
 # IMAGE BUILD
-FROM python:3.10-slim
+FROM python:3.13-slim
 LABEL org.opencontainers.image.authors="j.nelson@chia.net"
 LABEL org.opencontainers.image.source="https://github.com/Chia-Network/chia-simulator-docker"
 LABEL org.opencontainers.image.url="https://github.com/Chia-Network/chia-simulator-docker"
