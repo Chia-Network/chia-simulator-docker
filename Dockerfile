@@ -15,7 +15,7 @@ WORKDIR /chia-blockchain
 RUN echo "cloning chia-blockchain ${CHIA_BRANCH}" && \
     git clone --branch ${CHIA_BRANCH} --recurse-submodules=mozilla-ca https://github.com/Chia-Network/chia-blockchain.git . && \
     # If COMMIT is set, check out that commit, otherwise just continue
-    ( [ ! -z "CHIA_COMMIT" ] && git checkout CHIA_COMMIT ) || true && \
+    if [ -n "${CHIA_COMMIT}" ]; then git checkout "${CHIA_COMMIT}" && git submodule update --init mozilla-ca; fi && \
     echo "running build-script" && \
     /bin/sh ./install.sh
 
@@ -28,7 +28,7 @@ COPY docker-install.sh /
 RUN echo "cloning chia-dev-tools ${DEV_TOOLS_BRANCH}" && \
     git clone --branch ${DEV_TOOLS_BRANCH} https://github.com/Chia-Network/chia-dev-tools.git . && \
     # If COMMIT is set, check out that commit, otherwise just continue
-    ( [ ! -z "DEV_TOOLS_COMMIT" ] && git checkout DEV_TOOLS_COMMIT ) || true && \
+    if [ -n "${DEV_TOOLS_COMMIT}" ]; then git checkout "${DEV_TOOLS_COMMIT}"; fi && \
     echo "running build-script" && \
     /bin/sh /docker-install.sh
 
