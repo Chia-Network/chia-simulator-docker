@@ -1,5 +1,10 @@
+# The build and runtime stages must share one Python: the copied venv links to it.
+ARG CHIA_PYTHON_VERSION=3.13
+
 # CHIA + DEV TOOLS BUILD STEP
-FROM python:3.10 AS chia_build
+FROM python:${CHIA_PYTHON_VERSION} AS chia_build
+
+ARG CHIA_PYTHON_VERSION
 
 ARG CHIA_BRANCH=latest
 ARG CHIA_COMMIT=""
@@ -17,7 +22,7 @@ RUN echo "cloning chia-blockchain ${CHIA_BRANCH}" && \
     # If COMMIT is set, check out that commit, otherwise just continue
     if [ -n "${CHIA_COMMIT}" ]; then git checkout "${CHIA_COMMIT}"; fi && \
     echo "running build-script" && \
-    /bin/sh ./install.sh
+    INSTALL_PYTHON_VERSION="${CHIA_PYTHON_VERSION}" /bin/sh ./install.sh
 
 # we install all the chia-blockchain deps above
 WORKDIR /chia-dev-tools
@@ -33,7 +38,7 @@ RUN echo "cloning chia-dev-tools ${DEV_TOOLS_BRANCH}" && \
     /bin/sh /docker-install.sh
 
 # IMAGE BUILD
-FROM python:3.10-slim
+FROM python:${CHIA_PYTHON_VERSION}-slim
 LABEL org.opencontainers.image.authors="j.nelson@chia.net"
 LABEL org.opencontainers.image.source="https://github.com/Chia-Network/chia-simulator-docker"
 LABEL org.opencontainers.image.url="https://github.com/Chia-Network/chia-simulator-docker"
